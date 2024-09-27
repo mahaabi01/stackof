@@ -73,7 +73,9 @@ app.post("/login", async (req, res) => {
 
     //login the user if isMatch is true
     if (isMatched) {
-      
+      const token = jwt.sign({ id: data.id }, "password", { expiresIn: "30d" });
+      res.cookie('jwttoken', token);
+      console.log(token);
       res.send("Logged in success.");
     } else {
       res.send("Invalid email/password");
